@@ -1,0 +1,22 @@
+--- #YAML:1.0
+name:                WebDyne
+version:             1.158
+abstract:            ~
+license:             ~
+author:              
+    - Andrew Speer <andrew.speer@isolutions.com.au>
+generated_by:        ExtUtils::MakeMaker version 6.42
+distribution_type:   module
+requires:     
+    CGI:                           
+    Digest::MD5:                   
+    Env::Path:                     
+    HTML::Tagset:                  
+    HTML::TreeBuilder:             
+    HTTP::Status:                  
+    Storable:                      
+    Text::Template:                
+    Tie::IxHash:                   
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

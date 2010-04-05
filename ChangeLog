@@ -1,0 +1,259 @@
+commit 53bb3405024f8dee5be6fef369b4ecf3ba0aa951
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Mon Apr 5 17:04:30 2010 +0930
+
+    Tag: WebDyne_1.158
+    
+    Updated README file.
+
+commit f08c892452a981b3ae5b8b87c9ee1293a913901e
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Mon Apr 5 17:01:44 2010 +0930
+
+    Tag: WebDyne_1.157
+    
+    Fixed tests to work with new block render mode
+
+commit f0964b7515a89530b778143c38682de75b1ac69d
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Mon Apr 5 16:55:14 2010 +0930
+
+    Tag: WebDyne_1.156
+    
+    Updated man pages, general bug fixes including better __DIE__ signal
+    handling.
+
+commit 6df7d7cc6e6f76c5f5203de05b426cf6c78ddfbb
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sat Mar 20 12:33:41 2010 +1030
+
+    Tag: WebDyne_1.155
+
+commit 287308e1bf8a68499859135406e2cdfd52d0a447
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sun Mar 14 23:34:56 2010 +1030
+
+    Tag: WebDyne_1.154
+    
+    Improved error handling with source context. Added controls around what is shown in
+    HTML error messgages.
+    
+    Improved Compilation - now pre-render start_ CGI tags if possible.
+    
+    Man page for WebDyne updated
+    
+    Fixed junk characters appearing on r_child render, e.g. cached page
+
+commit 9397325d7a06c7b244daf337b418132249b67108
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Wed Mar 3 23:51:55 2010 +1030
+
+    Tag: WebDyne_1.153
+    
+    Added new tests, updated MANIFEST
+
+commit 92cf9d455b57d4eb054178872b8e0b16f26c2489
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Wed Mar 3 01:13:10 2010 +1030
+
+    Tag: WebDyne_1.152
+    
+    Use CGI::EXPORT_TAGS=:form for populating implicit tag list
+    
+    Look for start_ tags (as in start_form etc.) and treat as implicit
+    
+    Auto terminate all HTML once __PERL__ is seen.
+
+commit 0da3763686e5d63ff374a8cc5696d36cbf46b786
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Tue Mar 2 11:30:50 2010 +1030
+
+    Tag: WebDyne_1.151
+    
+    Clean up path handling in perl5lib.pm - cononize paths before output
+    to webdyne.conf so consistant for platform (e.g. Windows)
+
+commit ba6a8bdd23ee2d700feb83272f7551e33aeaf0a8
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Mon Mar 1 01:44:30 2010 +1030
+
+    Tag: WebDyne_1.150
+    
+    Modified tests so render the same across different CGI.pm versions, stops them failing on different platforms with higher/lower CGI version than the dev platform.
+
+commit b7f7301a7422ecf31b85303c7a9e7f1af319c8c7
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Mon Mar 1 00:24:47 2010 +1030
+
+    Tag: WebDyne_1.149
+    
+    Fix error with reading Apache->dir_config in mod_perl 1.x
+    
+    Clean up "local $SIG{__DIE__}" syntax to be correct
+    
+    Extra careful with cache flush at startup - check WEBDYNE_CACHE_DN exists befoe glob
+
+commit c8cad1a9869f084c1da5d884fb2e23a7c63b3912
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sun Feb 28 22:45:19 2010 +1030
+
+    Tag: WebDyne_1.148
+    
+    Silenced warnings in bin/* files, trapped SIG{__DIE__} when trying to
+    load Time::HiRes so doesn't trip over when running make test
+
+commit 89467c359da8e0bd1a3518246aa298db8a86b89e
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sun Feb 28 17:38:06 2010 +1030
+
+    Tag: WebDyne_1.147
+    
+    Fix stupid bug in default directory choice
+
+commit 1caa42e182b58ea995ff9ade3c0acf7075fa4669
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sun Feb 28 17:02:17 2010 +1030
+
+    Tag: WebDyne_1.146
+    
+    Better choice of default cache directory if no PREFIX supplied
+
+commit 812389cf8d3898eee0becda48eddc8d30c83b373
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sun Feb 28 15:48:11 2010 +1030
+
+    Tag: WebDyne_1.145
+    
+    More perl5lib tweaking after breaking last change.
+
+commit d731bdf624f4f9fbacd9ceeaa40d005af1eb7059
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sun Feb 28 15:32:43 2010 +1030
+
+    Tag: WebDyne_1.144
+    
+    Tweaks to perl5lib to load ExtUtils::MM if library prefix same as Perl standard prefix
+
+commit 72d19abc56154382cb99b0b235b530b8b5557ee9
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sun Feb 28 14:27:27 2010 +1030
+
+    Tag: WebDyne_1.143
+    
+    Improve backwards compatibility with mod_perl 1.99
+
+commit 95049e6215ccccd4f21d83cd704dafe7daf416d3
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sat Feb 27 17:34:41 2010 +1030
+
+    Tag: WebDyne_1.142
+    
+    Modify "eval undef" to "eval { undef }" to stop bitching in older Perl versions
+
+commit 8ca4b07441a480dbf32d0fb7652ab3f0c2c96654
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sat Feb 27 17:26:57 2010 +1030
+
+    Tag: WebDyne_1.141
+    
+    Removed Time::HiRes as prereq in Makefile.PL
+
+commit 2a9cf3bebfb5e6bbe85c96354dd87b629ad07c30
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sat Feb 27 17:24:14 2010 +1030
+
+    Tag: WebDyne_1.140
+    
+    Made Time::HiRes module optional in WebDyne, WebDyne::Compile
+    
+    Made ExtUtils::MM module optional in perl5lib.pm
+    
+    Filtered CR's out when comparing t/*.psp with dump files to accommodate different output created by older versions of CGI.pm
+    
+    Included script to generate .dmp files in test dir
+
+commit 837c6b3bd26b011f589b4c036eb2604e9f3fc119
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sat Feb 27 15:23:18 2010 +1030
+
+    Tag: WebDyne_1.139
+    
+    Fix start_html UNIVERSAL::can entry in Compile - put in quotes so works correctly with older versions of Perl/CGI
+
+commit 87a3911fba0e77612e55bed722d416793332debb
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sat Feb 27 14:19:12 2010 +1030
+
+    Tag: WebDyne_1.138
+    
+    Fix Compile.pm for backwards compat with older CGI.pm
+
+commit 41b755c0b054699f1941592a09d2190846a1f795
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sat Feb 27 00:00:29 2010 +1030
+
+    Tag: WebDyne_1.137
+
+commit 14eb60c8f87a96bfe9769ee7eb029ad490eda6d4
+Author: root <root@copper.isolutions.com.au>
+Date:   Tue Feb 23 14:29:16 2010 +1030
+
+    Tag: WebDyne_1.135
+    
+    * Misc bug fixes
+    
+    * Addition of wddebug binary to change debug status
+    
+    * Change Constants file from /etc/constant.pm to /etc/webdyne.pm
+
+commit 5f227c3736a92ef69b23f81fccc3956a7c8ef1ea
+Author: Andrew Speer <aspeer@silicon.isolutions.com.au>
+Date:   Sat Aug 22 15:18:45 2009 +0930
+
+    Tag: WebDyne_1.134
+    
+    WebDyne::Install::Apache code now updates SELinux attributes for Webdyne cache dir (if SELinux enabled)
+
+commit 32f9c8f36ee477bbf15fddeb6fcd6ae4f95e25e1
+Author: Andrew Speer <aspeer@silicon.isolutions.com.au>
+Date:   Mon Aug 17 01:21:34 2009 +0930
+
+    Tag: WebDyne_1.133
+    
+    Integrated Apache installer into base module. Enhanced installer to run SELinux commands if needed.
+
+commit c6d9fa713e59ba6cd4da36076696790b5c6d82ca
+Author: Andrew Speer <aspeer@silicon.(none)>
+Date:   Sat Jul 19 16:14:10 2008 +0930
+
+    Tag: WebDyne_1.132
+    
+    Removed legacy RCS/CVS keywords and associated variables - no longer needed
+    in Git
+
+commit 1b9a3b3d173b61925524eba8e3add3de9275e40f
+Author: Andrew Speer <aspeer@silicon.(none)>
+Date:   Tue Jul 15 01:13:37 2008 +0930
+
+    Tag: WebDyne_1.130
+    
+    Add INSTALL file, include POD documentation for files in /bin. Add small
+    optimisation in WebDyne file to no increment cache usage counters if we are
+    not checking the cache file.
+
+commit 3fcd93d32f7a93fc900c6ee1294edf4aa1877a8a
+Author: Andrew Speer <aspeer@silicon.(none)>
+Date:   Sun Jul 13 12:37:11 2008 +0930
+
+    Tag: WebDyne_1.129
+    
+    Clean up Makefile.PL, rename filter that strips out debug commands to .pf
+    instead of .pl so not picked up and installed. Removed unneeded references
+    to error.psp file in constants section.
+
+commit ee532e5c653420cf77f11d1d9bd3f0df7b3ca7e6
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Wed Jul 9 01:17:39 2008 +0930
+
+    Initial Import
+
