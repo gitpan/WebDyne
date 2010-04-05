@@ -1,3 +1,19 @@
+commit 0a749ee7ed2e410cebf0f6b6b12f27f4665a3f59
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Mon Apr 5 22:04:28 2010 +0930
+
+    Tag: WebDyne_1.160
+    
+    Change way VERSION generated to try and make PAUSE happy
+
+commit 642821f353792cf77dd22e812a2ad258dd48610c
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Mon Apr 5 17:17:00 2010 +0930
+
+    Tag: WebDyne_1.159
+    
+    Updated wdapacheinit man page
+
 commit 53bb3405024f8dee5be6fef369b4ecf3ba0aa951
 Author: Andrew Speer <aspeer@copper.isolutions.com.au>
 Date:   Mon Apr 5 17:04:30 2010 +0930
