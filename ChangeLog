@@ -1,3 +1,34 @@
+commit 4e27b40f6f34eef22f4c645b5ad46458e3a44dc4
+Author: root <root@copper.isolutions.com.au>
+Date:   Wed Apr 7 01:21:00 2010 +0930
+
+    Tag: WebDyne_1.164
+    
+    Rename perl5lib.pm => perl5lib.pl and modify use so not stomping on
+    existing perl5lib.pm module that already exists on CPAN.
+
+commit 88b3221606cd8a5923bb7692dd85ba2ec0914874
+Author: root <root@copper.isolutions.com.au>
+Date:   Tue Apr 6 22:07:58 2010 +0930
+
+    Tag: WebDyne_1.163
+    
+    Updated tests to reflect new versioning scheme.
+
+commit d1782417eec7b1629281119a66ba834165254894
+Author: root <root@copper.isolutions.com.au>
+Date:   Tue Apr 6 22:03:29 2010 +0930
+
+    Tag: WebDyne_1.162
+
+commit 07b53246563e4c9828b987a33436f7d84ea7b102
+Author: root <root@copper.isolutions.com.au>
+Date:   Tue Apr 6 22:02:36 2010 +0930
+
+    Tag: WebDyne_1.161
+    
+    Changed format of $VERSION to make CPAN PAUSE indexer happy.
+
 commit 0a749ee7ed2e410cebf0f6b6b12f27f4665a3f59
 Author: Andrew Speer <aspeer@copper.isolutions.com.au>
 Date:   Mon Apr 5 22:04:28 2010 +0930
