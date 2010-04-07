@@ -1,3 +1,25 @@
+commit 2cd04fc49593cd4c9bfaf7c7d531cd9b27b9a239
+Author: root <root@copper.isolutions.com.au>
+Date:   Wed Apr 7 23:54:13 2010 +0930
+
+    Tag: WebDyne_1.187
+
+commit db6161ebfafa55f430cd4c532992e4bb355d2c85
+Author: root <root@copper.isolutions.com.au>
+Date:   Wed Apr 7 23:51:23 2010 +0930
+
+    Tag: WebDyne_1.186
+    
+    Improved documentation.
+
+commit cee25af0232826ffc547e824931ecef9a3283fde
+Author: root <root@copper.isolutions.com.au>
+Date:   Wed Apr 7 23:39:20 2010 +0930
+
+    Tag: WebDyne_1.185
+    
+    Improved documentation
+
 commit 1ca7e3c03c36418f5aa52a723d3e93c1ee9c722c
 Author: Andrew Speer <aspeer@copper.isolutions.com.au>
 Date:   Wed Apr 7 17:47:27 2010 +0930
