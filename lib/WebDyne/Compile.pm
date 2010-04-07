@@ -59,7 +59,8 @@ use WebDyne::Base;
 
 #  Version information
 #
-$VERSION='1.014';
+$VERSION='1.016';
+
 
 #  Debug load
 #
@@ -480,7 +481,7 @@ sub compile_init {
     };
     *CGI::html=sub {
 	my ($self, $attr_hr, @html)=@_;
-	return join(undef, CGI->start_html_cgi($attr_hr), @html, $self->end_html_cgi);
+	return join(undef, CGI->start_html($attr_hr), @html, $self->end_html);
     };
 
 

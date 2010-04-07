@@ -1,3 +1,19 @@
+commit 1ca7e3c03c36418f5aa52a723d3e93c1ee9c722c
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Wed Apr 7 17:47:27 2010 +0930
+
+    Tag: WebDyne_1.184
+    
+    Fixed issue with VERSION information not matching git revisions
+
+commit 12056288692570881aa16a7dd8ae266873653e18
+Author: root <root@copper.isolutions.com.au>
+Date:   Wed Apr 7 17:32:29 2010 +0930
+
+    Tag: WebDyne_1.182
+    
+    Added man page and PDF documentation
+
 commit 4e27b40f6f34eef22f4c645b5ad46458e3a44dc4
 Author: root <root@copper.isolutions.com.au>
 Date:   Wed Apr 7 01:21:00 2010 +0930
