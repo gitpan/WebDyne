@@ -1,3 +1,11 @@
+commit 14d2c4e39755c9abf098a3590acb8371d075c282
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Thu Apr 8 22:30:40 2010 +0930
+
+    Tag: WebDyne_1.190
+    
+    Minor cleanup, remove some unneeded variables.
+
 commit 4d236001754dece608d19028ba67d96df2d0a1e3
 Author: root <root@copper.isolutions.com.au>
 Date:   Thu Apr 8 21:37:36 2010 +0930
