@@ -1,3 +1,31 @@
+commit d9f2f1ed8d45a0c2d721044ae74d5a28aec304d6
+Author: Andrew Speer <andrew@webdyne.org>
+Date:   Sun Apr 11 15:41:34 2010 +0930
+
+    Tag: WebDyne_1.193
+    
+    Updated Makefile.PL to generate better META.yml info
+
+commit 4fc57fc0388bc0327a733614b0a10501bebe8159
+Author: Andrew Speer <andrew@webdyne.org>
+Date:   Sun Apr 11 14:43:05 2010 +0930
+
+    Tag: WebDyne_1.192
+    
+    Cleaned up coptyright and author contact information (again)
+
+commit 910aa36749ff114e71934829c2a29900b64e7cce
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sun Apr 11 14:28:44 2010 +0930
+
+    Tag: WebDyne_1.191
+
+commit d4b8a6831c30bcb5c5af1e38ccf5588e18997a67
+Author: Andrew Speer <aspeer@copper.isolutions.com.au>
+Date:   Sun Apr 11 14:28:44 2010 +0930
+
+    Tag: WebDyne_1.191
+
 commit 14d2c4e39755c9abf098a3590acb8371d075c282
 Author: Andrew Speer <aspeer@copper.isolutions.com.au>
 Date:   Thu Apr 8 22:30:40 2010 +0930
