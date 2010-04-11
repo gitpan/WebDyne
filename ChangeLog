@@ -1,3 +1,19 @@
+commit 0ff6c0052aaf1ee14b7d76cc42fedbaa88217210
+Author: Andrew Speer <andrew@webdyne.org>
+Date:   Sun Apr 11 21:37:28 2010 +0930
+
+    Tag: WebDyne_1.195
+    
+    Fixed version info in wdapacheinit
+
+commit 6fc9a38be8f640180b4e5409e934965f264cc48b
+Author: Andrew Speer <andrew@webdyne.org>
+Date:   Sun Apr 11 21:21:38 2010 +0930
+
+    Tag: WebDyne_1.194
+    
+    Update to YAML ver 1.4
+
 commit d9f2f1ed8d45a0c2d721044ae74d5a28aec304d6
 Author: Andrew Speer <andrew@webdyne.org>
 Date:   Sun Apr 11 15:41:34 2010 +0930
