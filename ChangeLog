@@ -1,3 +1,12 @@
+commit c9aa7f56725e048cd0f66871ce7d3d386eba24e9
+Author: Andrew Speer <andrew@webdyne.org>
+Date:   Mon Apr 12 12:38:45 2010 +0930
+
+    Tag: WebDyne_1.196
+    
+    Fixed up issue with meta data not coming across when stacked handlers used,
+    clean mm_ver redundancy in Makefile.PL
+
 commit 0ff6c0052aaf1ee14b7d76cc42fedbaa88217210
 Author: Andrew Speer <andrew@webdyne.org>
 Date:   Sun Apr 11 21:37:28 2010 +0930
