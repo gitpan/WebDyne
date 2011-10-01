@@ -1,3 +1,37 @@
+commit 5aaac6e3db44d9a52c32cf6b6eac64bcef3d62cd
+Author: Andrew Speer <andrew@webdyne.org>
+Date:   Sun Oct 2 01:42:44 2011 +0930
+
+    Tag: WebDyne_1.210
+    
+    Increment version number
+
+commit 8e148ae4929a08c6779da02b1aa4855a0de1f35d
+Author: Andrew Speer <andrew@webdyne.org>
+Date:   Sun Oct 2 01:37:26 2011 +0930
+
+    Tag: WebDyne_1.209
+    
+    Improved error debugging, attempt to print code that caused error.
+    
+    Fixed numerous basic bugs in rendering, particular render_block
+    
+    WEBDYNE_DELAYED_BLOCK_RENDER is not optional anymore - always on now
+    
+    wdrender expanded to print HTTP headers, optionally print HTML errors
+    
+    Added print, printf methods for perl code to use. Fixed code to print output pre-pended to any HTML
+    
+    Improved perl container variable isolation, $self no longer auto defined.
+
+commit 895398083213017868cdc3eb174659468ff3ed4d
+Author: Andrew Speer <andrew@webdyne.org>
+Date:   Fri Jul 15 11:23:40 2011 +0930
+
+    Tag: WebDyne_1.208
+    
+    Change versioning so dist version held in main module
+
 commit 49e07cb8affcc39db4b7703d2c0517121cdeabb4
 Author: Andrew Speer <andrew@webdyne.org>
 Date:   Wed Jul 13 17:02:20 2011 +0930
