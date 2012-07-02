@@ -1,3 +1,19 @@
+commit 17c8291b3dc02f9ea92187a7030c5b2ecac21ba1
+Author: Andrew Speer <andrew@webdyne.org>
+Date:   Tue Jul 3 01:02:15 2012 +0930
+
+    Tag: WebDyne_1.213
+
+commit caa4178040d9daecee95efd1107fdf427bb1587b
+Author: Andrew Speer <andrew@webdyne.org>
+Date:   Tue Jul 3 00:57:01 2012 +0930
+
+    Tag: WebDyne_1.212
+    
+    Added WEBDYNE_CGI_PARAM_EXPAND option to expand params (not param values) of the format foo;a=b into similarly named parameter values. Off by default so no surprises.
+    
+    Fixed typo in error message.
+
 commit fddb0c61103ada4f1e5e3d94da899f55f2a527bb
 Author: Andrew Speer <andrew@webdyne.org>
 Date:   Mon Jul 2 11:27:12 2012 +0930

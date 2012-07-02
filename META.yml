@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               WebDyne
-version:            1.210
+version:            1.211
 abstract:           create web pages with embedded Perl
 author:
     - Andrew Speer <andrew@webdyne.org>
