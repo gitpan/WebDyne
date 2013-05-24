@@ -1,3 +1,26 @@
+commit 9fe6fbd3a01c70cf3c3a08214938d10a6c88dbb1
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Fri May 24 22:14:35 2013 +0930
+
+    Tag: WebDyne_1.215
+    
+    Making dist for V1.215
+
+commit 06eb5e9dc08459026453de86a73cc95013d0bf22
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Fri May 24 22:10:37 2013 +0930
+
+    Tag: WebDyne_1.214
+    
+    Added unrender_block command to uncache blocks if no longer required within <perl> block
+    
+    Added dump of CGI params to error handler
+    
+    Added WEBDYNE_CGI_PARAM_EXPAND to allow expandion of CGI vars like foo&bar=1 to discrete params
+    
+    Fixed print function to be more reliable if user "prints" within <perl> block instead of returning block to render. Also swapped
+    concatenation - printed blocks are renderd *after* rendered HTML now instead of before (but still not a godd ide to mix and match)
+
 commit 17c8291b3dc02f9ea92187a7030c5b2ecac21ba1
 Author: Andrew Speer <andrew@webdyne.org>
 Date:   Tue Jul 3 01:02:15 2012 +0930

@@ -57,3 +57,4 @@ t/perlhead.dmp
 t/implicit.dmp
 README
 META.yml                                 Module meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)

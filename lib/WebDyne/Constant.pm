@@ -255,8 +255,9 @@ my $MP2 = ($Mod_perl_version > 1.99) ? 1 : 0;
     WEBDYNE_ERROR_BACKTRACE_SHORT		=>	0,
     #  Show eval trace. Uses SOURCE_CONTEXT_LINES to determine number of lines to show
     WEBDYNE_ERROR_EVAL_CONTEXT_SHOW		=>	1,
+    #  CGI Params
+    WEBDYNE_ERROR_CGI_PARAM_SHOW		=>	1,
     #  URI and version
-    #
     WEBDYNE_ERROR_URI_SHOW			=>	1,
     WEBDYNE_ERROR_VERSION_SHOW			=>	1,
     
