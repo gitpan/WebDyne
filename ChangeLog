@@ -1,3 +1,19 @@
+commit 03724781e3b240d5092566f90c5a6f99fd524700
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Sat May 25 12:28:41 2013 +0930
+
+    Tag: WebDyne_1.217
+    
+    Update version information for CPAN push
+
+commit 3d6d33393613e3e42afc69c54156d25c853d63ba
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Sat May 25 12:27:17 2013 +0930
+
+    Tag: WebDyne_1.216
+    
+    Changed defaults for error messages. Short error message now displayed by default.
+
 commit 9fe6fbd3a01c70cf3c3a08214938d10a6c88dbb1
 Author: Andrew Speer <andrew.speer@isolutions.com.au>
 Date:   Fri May 24 22:14:35 2013 +0930
