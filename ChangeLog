@@ -1,3 +1,21 @@
+commit 0a3a99f9904c59655897dfa081895a000623bd1f
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Tue May 28 02:19:39 2013 +0930
+
+    Tag: WebDyne_1.220
+    
+    Version increment.
+
+commit 94185bf753aa1fe323baa6083a6144860cc5efb0
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Tue May 28 02:17:20 2013 +0930
+
+    Tag: WebDyne_1.219
+    
+    Fix problem with subsitution.t that resulted in random test fails dues to differences in hash ordering when test was run.
+    
+    Add code to add Carp::Heavy::[shormess|longmess}_[heavy|real] stubs if non-existant to fix problems with old/new Carp interaction.
+
 commit 5f3827682b57c8f74037721a10ba9e3d28a88e6c
 Author: Andrew Speer <andrew.speer@isolutions.com.au>
 Date:   Sat May 25 13:41:32 2013 +0930
