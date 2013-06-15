@@ -1,3 +1,24 @@
+commit 0cfc8d3f567d7cdc695ab9951c02364df71a2208
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Sat Jun 15 13:01:42 2013 +0930
+
+    Tag: WebDyne_1.222
+    
+    Version increment before CPAN push
+
+commit 64b9812f10cffdffb862dd1a27af3ac9381eb179
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Sat Jun 15 12:55:43 2013 +0930
+
+    Tag: WebDyne_1.221
+    
+    Added __END__ directive/token for .psp files - if seen in .psp file will stop parsing.
+    
+    Added option for wdrender/Fake request handler to output to file, changed tests to make use of new
+    facility.
+    
+    Added extended option documentation into Apache webdyne.conf file - easier to change an option now
+
 commit 0a3a99f9904c59655897dfa081895a000623bd1f
 Author: Andrew Speer <andrew.speer@isolutions.com.au>
 Date:   Tue May 28 02:19:39 2013 +0930
