@@ -1,3 +1,11 @@
+commit 3ef59c303cdfa1c515c3b086cfe4f273cbda34b9
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Tue Jul 2 00:10:32 2013 +0930
+
+    Tag: WebDyne_1.223
+    
+    Added escape for NULL terminated strings in error handler so displayed properly.
+
 commit 0cfc8d3f567d7cdc695ab9951c02364df71a2208
 Author: Andrew Speer <andrew.speer@isolutions.com.au>
 Date:   Sat Jun 15 13:01:42 2013 +0930
