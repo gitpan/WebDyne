@@ -63,7 +63,7 @@ use overload;
 
 #  Version information
 #
-$VERSION='1.223';
+$VERSION='1.224';
 
 
 #  Debug load
@@ -922,7 +922,9 @@ sub init_class {
         #  Array returned ? Convert if so
         #
         (ref($html_sr) eq 'ARRAY') && do {
-            $html_sr=\ join(undef, map { ref($_) ? ${$_} : $_ } @{$html_sr})
+            local $SIG{'__DIE__'}=undef;
+            eval { $html_sr=\ join(undef, map { ref($_) ? ${$_} : $_ } @{$html_sr}) } ||
+                return err('unable to generate scalar from %s', Dumper($html_sr));
         };
 
 

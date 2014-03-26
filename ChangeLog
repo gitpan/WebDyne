@@ -1,3 +1,21 @@
+commit 49b2db2ad6422d9d87a78c83b225519c4f45f7fb
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Thu Mar 27 00:08:26 2014 +1030
+
+    Tag: WebDyne_1.224
+    
+    Version increment
+
+commit a3cd8cafe44ad2cc98f8169751b76126ec69fa09
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Thu Mar 27 00:06:21 2014 +1030
+
+    Wrap eval around construction of HTML scalar from ref to check for incorrect ref types on build.
+    
+    Update Constant to default CGI param split to on
+    
+    Update wdrender to turn headers on by default
+
 commit 3ef59c303cdfa1c515c3b086cfe4f273cbda34b9
 Author: Andrew Speer <andrew.speer@isolutions.com.au>
 Date:   Tue Jul 2 00:10:32 2013 +0930

@@ -4,7 +4,7 @@
       "Andrew Speer <andrew@webdyne.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.112621",
+   "generated_by" : "ExtUtils::MakeMaker version 6.72, CPAN::Meta::Converter version 2.120351",
    "license" : [
       "open_source"
    ],
@@ -22,25 +22,25 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : 0
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : 0
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "runtime" : {
          "requires" : {
-            "CGI" : 0,
-            "Digest::MD5" : 0,
-            "Env::Path" : 0,
-            "HTML::Tagset" : 0,
-            "HTML::TreeBuilder" : 0,
-            "HTTP::Status" : 0,
-            "Storable" : 0,
-            "Text::Template" : 0,
-            "Tie::IxHash" : 0
+            "CGI" : "0",
+            "Digest::MD5" : "0",
+            "Env::Path" : "0",
+            "HTML::Tagset" : "0",
+            "HTML::TreeBuilder" : "0",
+            "HTTP::Status" : "0",
+            "Storable" : "0",
+            "Text::Template" : "0",
+            "Tie::IxHash" : "0"
          }
       }
    },
@@ -51,5 +51,5 @@
          "http://www.gnu.org/licenses/gpl.html"
       ]
    },
-   "version" : "1.223"
+   "version" : "1.224"
 }
