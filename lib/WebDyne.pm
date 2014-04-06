@@ -63,7 +63,7 @@ use overload;
 
 #  Version information
 #
-$VERSION='1.224';
+$VERSION='1.225';
 
 
 #  Debug load
@@ -858,7 +858,8 @@ sub init_class {
 
         #  Get self ref
         #
-        my ($self, $data_ar, $eval_param_hr, $eval_text, $index)=@_;
+        my ($self, $data_ar, $eval_param_hr, $eval_text, $index, $tag_fg)=@_;
+        #CORE::print STDERR join('*', @{$data_ar})," evel param_hr: $eval_param_hr\n";
 
 
         #  Debug
@@ -919,11 +920,10 @@ sub init_class {
         }
 
 
-        #  Array returned ? Convert if so
+        #  Array returneda and not evaling HT attribue values (which might want array ref ) ? Convert if so
         #
-        (ref($html_sr) eq 'ARRAY') && do {
-            local $SIG{'__DIE__'}=undef;
-            eval { $html_sr=\ join(undef, map { ref($_) ? ${$_} : $_ } @{$html_sr}) } ||
+        if ((ref($html_sr) eq 'ARRAY') && !$tag_fg) {
+            $html_sr=\ join(undef, map { (ref($_) eq 'SCALAR') ? ${$_} : $_ } @{$html_sr}) ||
                 return err('unable to generate scalar from %s', Dumper($html_sr));
         };
 
@@ -1080,7 +1080,7 @@ sub init_class {
         #  Get code ref from cache of possible, otherwise create
         #
         my $eval_cr=$Package{'_cache'}{$self->{'_inode'}}{'eval_array_cr'}{$data_ar}{$index} ||= do {
-            eval("sub{$eval_text}") || return(err("$@"));
+            eval("sub{$eval_text}") || return(err(qq[$@ fragment "$eval_text"]));
         };
 
 
@@ -1739,6 +1739,13 @@ sub subrequest {
     debug("r_child run return status $status, rc_child status %s", $r_child->status());
     return $status || $r_child->status();
 
+
+}
+
+
+sub eof {
+
+    goto HANDLER_COMPLETE;
 
 }
 
@@ -2421,75 +2428,24 @@ sub subst {
         return err('unable to get eval code ref table');
 
 
-    #  Var to hold result
-    #
-    my $text_subst=$text;
-
-
     #  Do we have to replace something in the text, look for pattern. We
     #  should always find something, as subst tag is only inserted at
     #  compile time in front of text with one of theses patterns
     #
     my $index;
-    while ($text=~/([$|!|+|*|^]{1})\{([$|!|+|*|^]?)(.*?)\2\}/gs) {
 
-
-        #  Yes, Save
-        #
-        my ($oper, $excl, $eval_text)=($1,$2,$3);
-        debug("subst hit on text $text, oper $oper excl $excl text $eval_text");
-
-
-        #  Run the appropriate eval
-        #
-        my $eval_sr=(
-
-            $eval_cr->{$oper} || return err("unknown eval operator, '$oper'")
-
-           )->($self, $data_ar, $param_data_hr, $eval_text, $index++) || do {
-
-               my $fragment=(length($text) > 80) ? substr($text,0,80) . '...' : $text;
-               $fragment=~s/^\n*//;
-               $fragment=~s/%/%%/;
-
-               return errsubst("eval error in fragment '$fragment': ".errstr())
-
-           };
-
-
-        # Should be a scalar ref
-        #
-        unless ((my $ref=ref($eval_sr)) eq 'SCALAR') {
-            return err("eval of '$eval_text' returned $ref ref, should return SCALAR ref");
-        }
-
-
-
-        #  Probably should have something now
-        #
-        if (!defined(${$eval_sr}) && $WEBDYNE_STRICT_DEFINED_VARS) {
-            return err("eval of '$eval_text' returned no value")
-        }
-
-
-
-        #  Work out what we are replacing, do it
-        #
-        my $eval_expr="$oper\{${excl}${eval_text}${excl}\}";
-        $text_subst=~s/\Q$eval_expr\E/${$eval_sr}/g;
-
-
-    }
-
-
-    #  Debug
-    #
-    #debug("return $text_subst");
-
+    my $cr=sub { 
+        my $sr=$eval_cr->{$_[0]}($self, $data_ar, $param_data_hr, $_[1], $_[2]) || 
+            return $self->err_eval(undef, [ \$_[1], 1, undef ]);
+        (ref($sr) eq 'SCALAR') ||
+            return err("eval of '$_[1]' returned %s ref, should return SCALAR ref", ref($sr));
+        $sr;
+    };
+    $text=~s/([\$!+*^]){\g1?(.*?)\g1?}/${$cr->($1,$2,$index++)}/ge;
 
     #  Done
     #
-    return \$text_subst;
+    return \$text;
 
 
 }
@@ -2521,78 +2477,49 @@ sub subst_attr {
 
     #  Go through each attribute and value
     #
-    my $attr_ix=0;
-    while ( my($attr, $value)=each %attr ) {
+    my $index;
+    while ( my($attr_name, $attr_value)=each %attr ) {
 
 
         #  Skip perl attr, as that is perl code, do not do any
         #  regexp on perl code, as we will probably botch it
         #
-        next if ($attr eq 'perl');
+        next if ($attr_name eq 'perl');
 
 
-        #  Do we have to replace something in the attr value
+        #  Any variables in value ?
         #
-        while ($value=~/([$|@|%|!|+]{1})\{([$|@|%|!|+]?)(.*?)\2\}/gs) {
-
-
-            #  Yes, Save
+        if ($attr_value=~/^\s*([@%!+*^]{1}){\g1?(.+?)\g1?}\s*$/s) {
+        
+            #  Straightforward @%!+ operator, must be only content of value (can't be mixed
+            #  with string, e.g. <popup_list values="foo=@{qw(bar)}" dont make sense
             #
-            my ($oper, $excl, $eval_text)=($1,$2,$3);
-            #debug("value $value, oper $oper, excl $excl, eval_text $eval_text");
-
-
-            #  If we had a hit on the ` chars, get rid of them
-            #
-            $2 && do { $value=~s/\`//g };
-
-
-            #  Do the appropriate eval
-            #
-            my $eval_return=(
-
-                $eval_cr->{$oper} || return err("unknown eval operator, '$oper'")
-
-               )->($self, $data_ar, $param_hr, $eval_text, $attr_ix++) || do {
-
-                   return $self->err_eval(undef, [ \$eval_text, 1, undef ]);
-
-
-               };
-
-
-            #  Debug
-            #
-            #debug("eval_return $eval_text=>$eval_return, %s", Dumper($eval_return));
-
-
-            #  If value_eval is a ref, get the ref text. No good showing a
-            #  scalar ref in a text field
-            #
-            if (ref($eval_return) eq 'SCALAR') {
-
-                $eval_return=${$eval_return};
-                my $eval_expr="$oper\{${excl}${eval_text}${excl}\}";
-                if ($value ne $eval_expr) {
-                        #debug("need to subst $eval_expr in $value");
-                        ($_=$value)=~s/\Q$eval_expr\E/$eval_return/g;
-                        $eval_return=$_;
-                }
-                #else {
-                        #debug("value $value = eval_expr $eval_expr, no work needed");
-
-                #}
-                #debug("scalar adjust return to $eval_return");
-
-            }
-
-
-            #  Replace the attr value
-            #
-            $attr{$attr}=$eval_return;
-            $value=$eval_return;
+            my ($oper, $eval_text)=($1,$2);
+            my $eval=$eval_cr->{$oper}->($self, $data_ar, $param_hr, $eval_text, $index++, 1) ||
+                return $self->err_eval(undef, [ \$eval_text, 1, undef ]);
+            $attr{$attr_name}=(ref($eval) eq 'SCALAR') ? ${$eval} : $eval;
 
         }
+        elsif ($attr_value=~/^\s*\${([^{]*)}\s*$/s) {
+        
+            #  Entire attr val is of form "name=${foo}", therefore OK to submit for eval
+            #
+            my $eval_text=$1;
+            my $eval=$eval_cr->{'$'}->($self, $data_ar, $param_hr, $eval_text, $index++) ||
+                return $self->err_eval(undef, [ \$eval_text, 1, undef ]);
+            $attr{$attr_name}=(ref($eval) eq 'SCALAR') ? ${$eval} : $eval;
+        }
+        elsif ($attr_value=~/\${(.*?)}/s) {
+        
+            #  Trickier - might be interspersed in strings, e.g <submit name="foo=1&${bar}=2&car=${dar}"/>
+            #  Substitution needed
+            #
+            my $cr=sub { $eval_cr->{'$'}($self, $data_ar, $param_hr, $_[0], $index++) || 
+                return $self->err_eval(undef, [ \$_[0], 1, undef ])  };
+            $attr_value=~s/\$\{(.*?)\}/${$cr->($1)}/ge;
+            $attr{$attr_name}=$attr_value
+        }
+
     }
 
 
@@ -3031,6 +2958,11 @@ sub CGI {
         #  And create it
         #
         my $cgi_or=CGI::->new();
+        
+        
+        #  Set defaults
+        #
+        $cgi_or->autoEscape($WEBDYNE_CGI_AUTOESCAPE);
 
 
         #  Expand params if we need to
@@ -3288,18 +3220,6 @@ sub inode {
     #
     my $self=shift();
     @_ ? $self->{'_inode'}=shift() : $self->{'_inode'};
-
-}
-
-
-sub eval_cr {
-
-
-   #  Return eval subroutine ref for inode ($_[0]) and eval code ref ($_[1]). Avoid using
-   #  var names so not available in eval code
-   #
-   eval("package WebDyne::$_[0]; $WebDyne::WEBDYNE_EVAL_USE_STRICT; sub{${$_[1]}}");
-   
 
 }
 

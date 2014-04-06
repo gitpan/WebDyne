@@ -1,3 +1,31 @@
+commit aeb0d56cf45a97844271191a7c4e0a6c66b095a8
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Sun Apr 6 21:35:31 2014 +0930
+
+    Tag: WebDyne_1.225 - version increment
+
+commit 4c0893cc92804f360e3f1630d6693e2510c2289c
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Sun Apr 6 21:32:20 2014 +0930
+
+    Refactor subsitution regexps
+
+commit a27065c5ff43c5bece701f8503a9bd911a769a86
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Sat Apr 5 18:50:50 2014 +1030
+
+    Refactor subst_attr regex to fix broken !{! [qw(a b) !} syntax + clean up regexp.
+    
+    Add CGI->noautoEscape(0) as defauly
+    
+    Add WebDyne->eof to bail out of render if needed
+    
+    Add noheader option to Fake Request
+    
+    New tests to check above work
+    
+    Other minor tweaks
+
 commit 49b2db2ad6422d9d87a78c83b225519c4f45f7fb
 Author: Andrew Speer <andrew.speer@isolutions.com.au>
 Date:   Thu Mar 27 00:08:26 2014 +1030
