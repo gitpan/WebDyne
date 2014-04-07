@@ -1,3 +1,15 @@
+commit 0acdf30c974ff03dfde493fed4bfd3a07e6fd437
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Mon Apr 7 12:01:34 2014 +0930
+
+    Tag: WebDyne_1.227 Version Increment
+
+commit bf2b396d71b775b8a9174e13e2b26c7e235e7217
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Mon Apr 7 11:58:32 2014 +0930
+
+    Revert regexp's to preserve Perl 5.8.8 compat
+
 commit aeb0d56cf45a97844271191a7c4e0a6c66b095a8
 Author: Andrew Speer <andrew.speer@isolutions.com.au>
 Date:   Sun Apr 6 21:35:31 2014 +0930
