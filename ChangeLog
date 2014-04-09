@@ -1,3 +1,24 @@
+commit 691e88e1c510a7dfdbd91ad2d7a4f475db7f77d3
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Wed Apr 9 23:59:30 2014 +0930
+
+    Code cleanup, fixes to test suite for old HTML::TreeBuilder module, WEBDYNE_EVAL_SAFE
+    disabled temporarily
+    
+    Tag: WebDyne_1.228
+
+commit 84e8c64dcd244918ec95647ae26b2076ebd2f833
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Wed Apr 9 22:56:31 2014 +0930
+
+    Fixed tests to be compatible with early version of HTML-Tree (3.13)
+
+commit da08def7ae68291bf5f3016dbd512d102d5bcc20
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Wed Apr 9 15:54:13 2014 +0930
+
+    Interim commit after eval code refactor
+
 commit 0acdf30c974ff03dfde493fed4bfd3a07e6fd437
 Author: Andrew Speer <andrew.speer@isolutions.com.au>
 Date:   Mon Apr 7 12:01:34 2014 +0930

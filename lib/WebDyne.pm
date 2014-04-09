@@ -63,7 +63,7 @@ use overload;
 
 #  Version information
 #
-$VERSION='1.227';
+$VERSION='1.228';
 
 
 #  Debug load
@@ -99,6 +99,11 @@ my %Package;
 #  Do some class wide initialisation
 #
 &init_class();
+
+
+#  Eval safe not effective - die if turned on
+#
+if ($WEBDYNE_EVAL_SAFE) { die "WEBDYNE_EVAL_SAFE disabled in this version\n" }
 
 
 #  All done. Positive return
@@ -859,7 +864,6 @@ sub init_class {
         #  Get self ref
         #
         my ($self, $data_ar, $eval_param_hr, $eval_text, $index, $tag_fg)=@_;
-        #CORE::print STDERR join('*', @{$data_ar})," evel param_hr: $eval_param_hr\n";
 
 
         #  Debug
@@ -892,14 +896,15 @@ sub init_class {
 
         #  Run eval
         #
-        my $html_sr=eval {
+        my @eval=eval {
 
             #  The following line puts all CGI params in %_ during the eval so they are easy to
             #  get to ..
             local *_=$param_hr;
             $eval_cr->($self, $eval_param_hr)
+
         };
-        if (!defined($html_sr) || $@) {
+        if (!@eval || $@) {
 
             #  An error occurred - handle it and return.
             #
@@ -915,32 +920,16 @@ sub init_class {
               #  Some other problem
               #
               return err('code did not return a true value: %s', $eval_text);
+
             }
 
         }
-
-
-        #  Array returneda and not evaling HT attribue values (which might want array ref ) ? Convert if so
-        #
-        if ((ref($html_sr) eq 'ARRAY') && !$tag_fg) {
-            $html_sr=\ join(undef, map { (ref($_) eq 'SCALAR') ? ${$_} : $_ } @{$html_sr}) ||
-                return err('unable to generate scalar from %s', Dumper($html_sr));
-        };
-
-
-        #  Any 'printed data ? Prepend to output
-        #
-        if (my $print_ar=delete $self->{'_print_ar'}{$data_ar}) {
-            my $print_html=join(undef, grep {$_} map { (ref($_) eq 'SCALAR') ? ${$_} : $_ } @{$print_ar});
-            $html_sr=ref($html_sr) ? \(${$html_sr}.$print_html) : $html_sr.$print_html;
-        }
         
-
-        #  Always return a scalar ref
+        
+        #  Done
         #
-        return ref($html_sr) ? $html_sr : \$html_sr;
-
-
+        \@eval;
+        
     };
 
 
@@ -1047,22 +1036,11 @@ sub init_class {
     my $eval_hash_cr=sub {
 
 
-        #  Get self ref, data_ar etc
+        #  Run eval and turn into tied hash
         #
-        my ($self, $data_ar, $eval_param_hr, $eval_text, $index)=@_;
+        tie (my %hr, 'Tie::IxHash', @{$eval_cr->(@_) || return err()});
+        return \%hr;
 
-
-        #  Get code ref from cache of possible, otherwise create
-        #
-        my $eval_cr=$Package{'_cache'}{$self->{'_inode'}}{'eval_hash_cr'}{$data_ar}{$index} ||= do {
-            eval("sub{$eval_text}") || return(err("$@"));
-        };
-
-
-        #  Create an indexed, tied hash ref and return it
-        #
-        tie (my %value, 'Tie::IxHash', $eval_cr->($self, $eval_param_hr));
-        \%value;
 
     };
 
@@ -1072,23 +1050,61 @@ sub init_class {
     my $eval_array_cr=sub {
 
 
-        #  Get self ref, data_ar etc
+        #  Run eval and return default - which is an array ref
         #
-        my ($self, $data_ar, $eval_param_hr, $eval_text, $index)=@_;
+        return $eval_cr->(@_) || err();
 
-
-        #  Get code ref from cache of possible, otherwise create
+    };
+    
+    
+    #  Code ref eval routine
+    #
+    my $eval_code_cr=sub {
+        
+        my ($self, $data_ar, $eval_param_hr, $eval_text, $index, $tag_fg)=@_;
+        my $html_ar=$eval_cr->(@_) || err();
+        my $html_sr=$html_ar->[0];
+        
+        
+        #  If array ref returned and not rendering a tag convert to string. If in tag CGI.pm can
+        #  use array ref so leave alone
         #
-        my $eval_cr=$Package{'_cache'}{$self->{'_inode'}}{'eval_array_cr'}{$data_ar}{$index} ||= do {
-            eval("sub{$eval_text}") || return(err(qq[$@ fragment "$eval_text"]));
+        if ((ref($html_sr) eq 'ARRAY') && !$tag_fg) {
+            $html_sr=\ join(undef, map { (ref($_) eq 'SCALAR') ? ${$_} : $_ } @{$html_sr}) ||
+                return err('unable to generate scalar from %s', Dumper($html_sr));
         };
 
 
-        #  Run the code and return an anon array ref
+        #  Any 'printed data ? Prepend to output
         #
-        [$eval_cr->($self, $eval_param_hr)];
+        if (my $print_ar=delete $self->{'_print_ar'}{$data_ar}) {
+            my $print_html=join(undef, grep {$_} map { (ref($_) eq 'SCALAR') ? ${$_} : $_ } @{$print_ar});
+            $html_sr=ref($html_sr) ? \(${$html_sr}.$print_html) : $html_sr.$print_html;
+        }
 
+        #  Make sure we return a ref
+        #
+        return ref($html_sr) ? $html_sr : \$html_sr;
+        
     };
+    
+
+    #  Scalar (${foo}) routine
+    #    
+    my $eval_scalar_cr=sub {
+    
+        my $value=$_[2]->{$_[3]};
+        unless ($value) {
+            if (!exists($_[2]->{$_[3]}) && $WEBDYNE_STRICT_VARS) {
+                return err("no '$_[3]' parameter value supplied, parameters are: %s", join(',', map {"'$_'"} keys %{$_[2]}))
+            } 
+        }
+        #  Get rid of any overloading
+        if (ref($value) && overload::Overloaded($value)) { $value="$value" }
+        return ref($value) ? $value : \$value 
+        
+    };
+    
 
 
     #  Init anon text and attr evaluation subroutines, store in class space
@@ -1096,17 +1112,10 @@ sub init_class {
     #
     my %eval_cr=(
 
-        '$' => sub {
-            (my $value=$_[2]->{$_[3]}) || do {
-                if (!exists($_[2]->{$_[3]}) && $WEBDYNE_STRICT_VARS) {
-                    return err("no '$_[3]' parameter value supplied, parameters are: %s", join(',', map {"'$_'"} keys %{$_[2]}))
-                } };
-            #  Get rid of any overloading
-            if (ref($value) && overload::Overloaded($value)) { $value="$value" }
-            return ref($value) ? $value : \$value },
+        '$' => $eval_scalar_cr,
         '@' => $eval_array_cr,
         '%' => $eval_hash_cr,
-        '!' => $WEBDYNE_EVAL_SAFE ? $eval_safe_cr : $eval_cr,
+        '!' => $eval_code_cr,
         '+' => sub { return \ ($_[0]->{'_CGI'}->param($_[3])) },
         '*' => sub { return \ $ENV{$_[3]} },
         '^' => sub { my $m=$_[3]; my $r=$_[0]->{'_r'};
@@ -2433,7 +2442,6 @@ sub subst {
     #  compile time in front of text with one of theses patterns
     #
     my $index;
-
     my $cr=sub { 
         my $sr=$eval_cr->{$_[0]}($self, $data_ar, $param_data_hr, $_[1], $_[2]) || 
             return $self->err_eval(undef, [ \$_[1], 1, undef ]);
@@ -2441,7 +2449,8 @@ sub subst {
             return err("eval of '$_[1]' returned %s ref, should return SCALAR ref", ref($sr));
         $sr;
     };
-    $text=~s/([\$!+*^]){\1?(.*?)\1?}/${$cr->($1,$2,$index++)}/ge;
+    $text=~s/([\$!+*^]){1}{(\1?)(.*?)\2}/${$cr->($1,$3,$index++)}/ge;
+
 
     #  Done
     #
@@ -2489,34 +2498,34 @@ sub subst_attr {
 
         #  Any variables in value ?
         #
-        if ($attr_value=~/^\s*([@%!+*^]{1}){\1?(.+?)\1?}\s*$/s) {
+        if ($attr_value=~/^\s*\${([^{]*)}\s*$/so) {
         
-            #  Straightforward @%!+ operator, must be only content of value (can't be mixed
-            #  with string, e.g. <popup_list values="foo=@{qw(bar)}" dont make sense
-            #
-            my ($oper, $eval_text)=($1,$2);
-            my $eval=$eval_cr->{$oper}->($self, $data_ar, $param_hr, $eval_text, $index++, 1) ||
-                return $self->err_eval(undef, [ \$eval_text, 1, undef ]);
-            $attr{$attr_name}=(ref($eval) eq 'SCALAR') ? ${$eval} : $eval;
-
-        }
-        elsif ($attr_value=~/^\s*\${([^{]*)}\s*$/s) {
-        
-            #  Entire attr val is of form "name=${foo}", therefore OK to submit for eval
+            #  Entire attr val is of form name="${foo}", therefore OK to submit for eval as-is
             #
             my $eval_text=$1;
             my $eval=$eval_cr->{'$'}->($self, $data_ar, $param_hr, $eval_text, $index++) ||
                 return $self->err_eval(undef, [ \$eval_text, 1, undef ]);
             $attr{$attr_name}=(ref($eval) eq 'SCALAR') ? ${$eval} : $eval;
         }
-        elsif ($attr_value=~/\${(.*?)}/s) {
+        elsif ($attr_value=~/^\s*([@%!+*^]){1}{(\1?)(.*)\2}\s*$/so ) {
+        
+            #  Straightforward @%!+^ operator, must be only content of value (can't be mixed
+            #  with string, e.g. <popup_list values="foo=@{qw(bar)}" dont make sense
+            #
+            my ($oper, $eval_text)=($1,$3);
+            my $eval=$eval_cr->{$oper}->($self, $data_ar, $param_hr, $eval_text, $index++, 1) ||
+                return $self->err_eval(undef, [ \$eval_text, 1, undef ]);
+            $attr{$attr_name}=(ref($eval) eq 'SCALAR') ? ${$eval} : $eval;
+
+        }
+        elsif ($attr_value=~/\${(.*?)}/so) {
         
             #  Trickier - might be interspersed in strings, e.g <submit name="foo=1&${bar}=2&car=${dar}"/>
             #  Substitution needed
             #
             my $cr=sub { $eval_cr->{'$'}($self, $data_ar, $param_hr, $_[0], $index++) || 
                 return $self->err_eval(undef, [ \$_[0], 1, undef ])  };
-            $attr_value=~s/\$\{(.*?)\}/${$cr->($1)}/ge;
+            $attr_value=~s/\${(.*?)}/${$cr->($1)}/ge;
             $attr{$attr_name}=$attr_value
         }
 
