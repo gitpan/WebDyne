@@ -1,3 +1,23 @@
+commit e7a744d5ef3c01d03ae43ff68bbc7d9c7189534e
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Sun Apr 13 23:00:01 2014 +0930
+
+    Tag: WebDyne_1.229
+    
+    Version Increment
+
+commit 3d05348cab09ffeb4fab7faf54d59254f4128d6c
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Sun Apr 13 16:34:36 2014 +0930
+
+    Improve location finding for perl5lb.pl, implicit add of use Data::Dumper, add self-documenting vars to Apache installer.
+
+commit 3892305eb02558411e9686c95a8615f55f47031d
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Thu Apr 10 18:04:45 2014 +0930
+
+    Improve regexp in Compile module
+
 commit 691e88e1c510a7dfdbd91ad2d7a4f475db7f77d3
 Author: Andrew Speer <andrew.speer@isolutions.com.au>
 Date:   Wed Apr 9 23:59:30 2014 +0930
