@@ -1,3 +1,19 @@
+commit 59ae241ea8572f327d088928c6ad65611c69906f
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Mon Apr 14 18:25:49 2014 +0930
+
+    Tag: WebDyne_1.231
+    
+    Version increment
+
+commit 069f5be24f8e32d8e04419a2c85a1e672c044b40
+Author: Andrew Speer <andrew.speer@isolutions.com.au>
+Date:   Mon Apr 14 18:25:03 2014 +0930
+
+    Tag: WebDyne_1.230
+    
+    Another substitution regexp fix, add Data::Dumper as required module is some packages
+
 commit e7a744d5ef3c01d03ae43ff68bbc7d9c7189534e
 Author: Andrew Speer <andrew.speer@isolutions.com.au>
 Date:   Sun Apr 13 23:00:01 2014 +0930
